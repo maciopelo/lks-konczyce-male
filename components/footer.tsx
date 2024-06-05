@@ -1,30 +1,41 @@
-import Container from "./container";
-import { EXAMPLE_PATH } from "../lib/constants";
+import { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import Link from "next/link";
 
 export default function Footer() {
+  useEffect(() => {
+    AOS.init({
+      easing: "ease-out-quad",
+      duration: 1000,
+    });
+  }, []);
+
   return (
-    <footer className="bg-accent-1 border-t border-accent-2">
-      <Container>
-        <div className="py-28 flex flex-col lg:flex-row items-center">
-          <h3 className="text-4xl lg:text-5xl font-bold tracking-tighter leading-tight text-center lg:text-left mb-10 lg:mb-0 lg:pr-4 lg:w-1/2">
-            Statically Generated with Next.js.
-          </h3>
-          <div className="flex flex-col lg:flex-row justify-center items-center lg:pl-4 lg:w-1/2">
-            <a
-              href="https://nextjs.org/docs/basic-features/pages"
-              className="mx-3 bg-black hover:bg-white hover:text-black border border-black text-white font-bold py-3 px-12 lg:px-8 duration-200 transition-colors mb-6 lg:mb-0"
-            >
-              Read Documentation
-            </a>
-            <a
-              href={`https://github.com/vercel/next.js/tree/canary/examples/${EXAMPLE_PATH}`}
-              className="mx-3 font-bold hover:underline"
-            >
-              View on GitHub
-            </a>
-          </div>
-        </div>
-      </Container>
+    <footer className="p-responsive py-4 flex bg-black text-white border-t-2 border-burgund">
+      <div className="flex-2 sm:flex-1 text-left text-[10px] sm:text-sm">
+        <a
+          href="https://maps.app.goo.gl/5ZjLeYV55S8K7ucw6"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <span className="font-bold">LKS Kończyce Małe </span> <br />
+          Jagiellońska 33 <br />
+          43-410 Kończyce Małe
+        </a>
+      </div>
+      <div className="flex-1 text-center flex justify-center items-center">
+        <p className="font-bold text-xs sm:text-sm sm:text-lg">Copyright ©</p>
+      </div>
+      <div className="flex-2 sm:flex-1 text-right flex justify-end items-center text-[10px] sm:text-sm">
+        <Link
+          href="/polityka-prywatnosci.pdf"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Polityka prywatności
+        </Link>
+      </div>
     </footer>
   );
 }

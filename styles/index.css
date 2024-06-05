@@ -1,18 +1,10 @@
 @tailwind base;
-
-/* Write your own custom base styles here */
-
-/* Start purging... */
 @tailwind components;
-/* Stop purging. */
-
-/* Write you own custom component styles here */
-
-/* Start purging... */
 @tailwind utilities;
-/* Stop purging. */
 
-/* Your own custom utilities */
+.p-responsive {
+  @apply px-4 sm:px-8 lg:px-12 xl:px-16;
+}
 
 .has-text-align-left {
   @apply text-left;
@@ -101,4 +93,23 @@
 
 .wp-block-media-text {
   @apply grid grid-cols-2 gap-4;
+}
+
+.slick-slide img {
+  max-height: 250px;
+  object-fit: contain;
+  padding: 1rem;
+}
+
+.slick-track {
+  height: 250px;
+  @media (width <= 640px) {
+    height: 150px;
+  }
+}
+.slick-slide > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
