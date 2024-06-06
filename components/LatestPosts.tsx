@@ -1,10 +1,12 @@
 import { paths } from "@/lib/routes";
+import { parseDate } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 
 export type Post = {
   node: {
     id: string;
+    slug: string;
     postFields: {
       title: string;
       content: string;
@@ -23,14 +25,9 @@ interface Props {
 }
 
 export default function LatestPosts({ posts }: Props) {
-  const parseDate = (date: string) => {
-    const [y, m, d] = date.substring(0, 10).split("-");
-    return `${d}/${m}/${y}`;
-  };
-
   return (
-    <section className="flex justify-center items-center flex-col py-12 p-responsive">
-      <p className="font-light text-4xl uppercase pb-12 text-center">
+    <section className="flex justify-center items-center flex-col py-6 sm:py-12 p-responsive">
+      <p className="font-light text-3xl sm:text-4xl uppercase pb-6 sm:pb-12 text-center">
         Najnowsze aktualności
       </p>
       <div className="flex flex-col md:flex-row">
@@ -40,7 +37,7 @@ export default function LatestPosts({ posts }: Props) {
           return (
             <Link
               className="card shadow-xl image-full pb-5 last:pb-0 md:pb-0 md:pr-5 last:pr-0 last:hidden lg:last:grid"
-              href={`${paths.POSTS}/${post.node.id}`}
+              href={`${paths.POSTS}/${post.node.slug}`}
               key={post.node.id}
             >
               <figure className="h-80 md:h-auto">

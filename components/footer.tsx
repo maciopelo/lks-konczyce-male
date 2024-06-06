@@ -24,8 +24,9 @@ export default function Footer() {
           43-410 Kończyce Małe
         </a>
       </div>
-      <div className="flex-1 text-center flex justify-center items-center">
-        <p className="font-bold text-xs sm:text-sm sm:text-lg">Copyright ©</p>
+      <div className="flex-1 text-center flex justify-center items-center font-bold text-xs sm:text-sm">
+        <p className="hidden min-[350px]:block">Copyright </p>
+        <span className="text-lg min-[350px]:text-xs">©</span>
       </div>
       <div className="flex-2 sm:flex-1 text-right flex justify-end items-center text-[10px] sm:text-sm">
         <Link

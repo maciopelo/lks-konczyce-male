@@ -15,7 +15,7 @@ const Season = () => {
         </div>
         <div
           data-aos="fade-right"
-          className="p-responsive uppercase flex flex-col  items-center sm:block font-bold text-4xl sm:text-6xl lg:text-8xl"
+          className="p-responsive uppercase flex flex-col  items-center sm:block font-bold text-3xl sm:text-6xl lg:text-8xl"
         >
           <p>LKS</p>
           <p className="pt-2 ">Kończyce Małe</p>

@@ -1,6 +1,12 @@
+import { before } from "node:test";
+
 const API_URL = process.env.WORDPRESS_API_URL;
 
-async function fetchAPI(query = "", { variables }: Record<string, any> = {}) {
+async function fetchAPI(
+  query = "",
+  { variables }: Record<string, any> = {},
+  apiUrl = API_URL
+) {
   const headers = { "Content-Type": "application/json" };
 
   if (process.env.WORDPRESS_AUTH_REFRESH_TOKEN) {
@@ -10,7 +16,7 @@ async function fetchAPI(query = "", { variables }: Record<string, any> = {}) {
   }
 
   // WPGraphQL Plugin must be enabled
-  const res = await fetch(API_URL, {
+  const res = await fetch(apiUrl, {
     headers,
     method: "POST",
     body: JSON.stringify({
@@ -27,12 +33,65 @@ async function fetchAPI(query = "", { variables }: Record<string, any> = {}) {
   return json.data;
 }
 
-export async function getLastThreePosts(preview: boolean) {
-  const query = `query Posts {
-    posts(first:4, where: { orderby: { field:DATE, order:DESC } }) {
+export async function getALlPostSlugs() {
+  const query = `
+  query AllPostSlugs {
+    posts {
+      edges{
+        node{
+          slug
+        }
+      }
+    }
+  }`;
+  const data = await fetchAPI(query);
+  return data?.posts;
+}
+
+export async function getPost(preview: boolean, slug: string) {
+  const query = `
+  query Post($id: ID!)  {
+    post(id: $id, idType: SLUG) {
+      slug
+      postFields {
+        title
+        content
+        date
+        image {
+          node {
+            sourceUrl
+          }
+        }
+      }
+    }
+  }`;
+  const options = {
+    variables: {
+      id: slug,
+      onlyEnabled: !preview,
+      preview,
+    },
+  };
+
+  const data = await fetchAPI(query, options);
+  return data?.post;
+}
+
+export async function getPrevPosts(
+  preview: boolean,
+  last: number,
+  startCursor: string,
+  apiUrl?: string
+) {
+  const query = `query Posts($last:Int!, $before:String!)  {
+    posts(
+      last:$last
+      before:$before,
+    ) {
       edges {
         node {
           id
+          slug
           postFields {
             title
             date
@@ -44,17 +103,115 @@ export async function getLastThreePosts(preview: boolean) {
           }
         }
       }
+      pageInfo{
+        hasPreviousPage
+        hasNextPage
+        startCursor
+        endCursor
+      }
     }
   }`;
   const options = {
     variables: {
       onlyEnabled: !preview,
       preview,
+      last,
+      before: startCursor,
+    },
+  };
+
+  const data = await fetchAPI(query, options, apiUrl);
+  return data?.posts;
+}
+
+export async function getNextPosts(
+  preview: boolean,
+  first: number,
+  endCursor: string,
+  apiUrl?: string
+) {
+  const query = `query Posts($first:Int!, $after:String!) {
+    posts(
+      first:$first,
+      after:$after
+    ) {
+      edges {
+        node {
+          id
+          slug
+          postFields {
+            title
+            date
+            image {
+              node {
+                sourceUrl
+              }
+            }
+          }
+        }
+      }
+      pageInfo{
+        hasPreviousPage
+        hasNextPage
+        startCursor
+        endCursor
+      }
+    }
+  }`;
+  const options = {
+    variables: {
+      onlyEnabled: !preview,
+      preview,
+      first,
+      after: endCursor,
+    },
+  };
+
+  const data = await fetchAPI(query, options, apiUrl);
+  return data?.posts;
+}
+
+export async function getLatestPosts(preview: boolean, limit: number) {
+  const query = `query Posts($first:Int!) {
+    posts(
+      first:$first,
+      where: { 
+        orderby: { field:DATE, order:DESC } 
+      }
+    ) {
+      edges {
+        node {
+          id
+          slug
+          postFields {
+            title
+            date
+            image {
+              node {
+                sourceUrl
+              }
+            }
+          }
+        }
+      }
+      pageInfo{
+        hasPreviousPage
+        hasNextPage
+        startCursor
+        endCursor
+      }
+    }
+  }`;
+  const options = {
+    variables: {
+      onlyEnabled: !preview,
+      preview,
+      first: limit,
     },
   };
 
   const data = await fetchAPI(query, options);
-  return data?.posts.edges;
+  return data?.posts;
 }
 
 export async function getSponsors(preview: boolean) {

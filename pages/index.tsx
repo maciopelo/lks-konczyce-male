@@ -1,5 +1,5 @@
 import { GetStaticProps } from "next";
-import { getLastThreePosts, getSponsors } from "@/lib/api";
+import { getLatestPosts, getSponsors } from "@/lib/api";
 import Layout from "@/components/Layout";
 import Season from "@/components/Season";
 import LatestPosts from "@/components/LatestPosts";
@@ -23,11 +23,12 @@ export default function Index({ posts, sponsors }) {
 }
 
 export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
-  const posts = await getLastThreePosts(preview);
+  const limit = 4;
+  const { edges } = await getLatestPosts(preview, limit);
   const sponsors = await getSponsors(preview);
 
   return {
-    props: { posts, sponsors, preview },
+    props: { posts: edges, sponsors, preview },
     revalidate: 10,
   };
 };

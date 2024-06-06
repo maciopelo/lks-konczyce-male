@@ -49,8 +49,8 @@ export default function Sponsors({ sponsors }: Props) {
   };
 
   return (
-    <section className="py-12">
-      <p className="font-light text-4xl uppercase pb-12 text-center">
+    <section className="py-6 sm:py-12">
+      <p className="font-light text-3xl sm:text-4xl uppercase pb-6 sm:pb-12 text-center">
         Sponsorzy
       </p>
 
