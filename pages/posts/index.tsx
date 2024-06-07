@@ -8,9 +8,10 @@ import { parseDate } from "@/lib/utils";
 import Image from "next/image";
 import { useState } from "react";
 import { redirect } from "next/navigation";
+import Pagination from "@/components/Pagination";
+import { API_URL } from "@/lib/constants";
 
 const POSTS_PER_PAGE = 4;
-const API_URL = "http://127.0.0.1:10003/graphql";
 
 interface Props {
   preview: boolean;
@@ -64,55 +65,48 @@ export default function Index({ posts, pageInfo, preview }: Props) {
 
   return (
     <Layout pageTitle="Aktualności">
-      <section className="p-responsive flex justify-between flex-col items-center w-full min-h-screen pt-[120px]">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12">
-          {visiblePosts.map((post) => {
-            const { title, date, image } = post.node.postFields;
-            return (
-              <Link
-                className="card w-[280px] min-[350px]:w-[350px] h-[300px] sm:w-[450px] sm:h-[350px] bg-base-100 shadow-xl relative"
-                href={`${paths.POSTS}/${post.node.slug}`}
-                key={post.node.id}
-              >
-                {isLoading ? (
-                  <div className="absolute w-full h-full skeleton" />
-                ) : (
-                  <>
-                    <figure className="grow-[4]">
-                      <Image
-                        src={image.node.sourceUrl}
-                        alt="Shoes"
-                        width={450}
-                        height={350}
-                        className="object-contain"
-                      />
-                    </figure>
-                    <div className="card-body p-3 grow-[1]">
-                      <h2 className="card-title text-md">{title}</h2>
-                      <p className="text-sm">{parseDate(date)}</p>
-                    </div>
-                  </>
-                )}
-              </Link>
-            );
-          })}
-        </div>
-        <div className="join grid grid-cols-2 my-4">
-          <button
-            disabled={!currentPageInfo.hasPreviousPage || isLoading}
-            className="join-item btn btn-outline text-3xl"
-            onClick={fetchPrevPosts}
-          >
-            «
-          </button>
-          <button
-            disabled={!currentPageInfo.hasNextPage || isLoading}
-            className="join-item btn btn-outline text-3xl"
-            onClick={fetchNextPosts}
-          >
-            »
-          </button>
-        </div>
+      <section className="p-responsive flex justify-between flex-col items-center w-full min-h-screen header-offset">
+        {isLoading ? (
+          <span className="flex-1 loading loading-spinner loading-lg" />
+        ) : (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12">
+            {visiblePosts.map((post) => {
+              const { title, date, image } = post.node.postFields;
+              return (
+                <Link
+                  className="card w-[280px] min-[350px]:w-[300px] h-[300px] sm:w-[400px] sm:h-[330px] bg-base-100 shadow-xl relative"
+                  href={`${paths.POSTS}/${post.node.slug}`}
+                  key={post.node.id}
+                >
+                  <figure className="grow-[4] relative">
+                    <Image
+                      src={image.node.sourceUrl}
+                      alt="Shoes"
+                      width={450}
+                      height={350}
+                      style={{
+                        maxWidth: "inherit",
+                      }}
+                      className="object-contain"
+                    />
+                    <div className="absolute h-full bg-dimDark w-full rounded-md" />
+                  </figure>
+                  <div className="card-body p-3 grow-[1]">
+                    <h2 className="card-title text-md">{title}</h2>
+                    <p className="text-sm">{parseDate(date)}</p>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        )}
+
+        <Pagination
+          prevDisabled={!currentPageInfo.hasPreviousPage || isLoading}
+          nextDisabled={!currentPageInfo.hasNextPage || isLoading}
+          onPrevClick={fetchPrevPosts}
+          onNextClick={fetchNextPosts}
+        />
       </section>
     </Layout>
   );

@@ -11,6 +11,7 @@ module.exports = {
         darkBurgund: "#201616",
         white: "#f4ecec",
         dimWhite: "rgb(255,255,255,0.15)",
+        dimDark: "rgb(0,0,0,0.2)",
       },
     },
   },

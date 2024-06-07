@@ -1,7 +1,6 @@
 import Layout from "@/components/Layout";
 import Image from "next/image";
-import { getPost, getALlPostSlugs } from "@/lib/api";
-import { Post } from "@/components/LatestPosts";
+import { getPost, getAllPostSlugs } from "@/lib/api";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { parseDate } from "@/lib/utils";
 
@@ -25,7 +24,7 @@ export default function SinglePost({ post }: Props) {
   const { title, content, date, image } = post.postFields;
   return (
     <Layout pageTitle="Aktualności">
-      <section className=" p-responsive pt-[120px] flex flex-col items-center justify-center w-full min-h-screen">
+      <section className="p-responsive header-offset flex flex-col items-center justify-center w-full min-h-screen">
         <div className="max-w-screen-md xl:max-w-screen-lg flex flex-col justify-center p-4">
           <h1 className="font-bold text-lg sm:text-3xl">{title}</h1>
           <div className="flex flex-col pt-4 ">
@@ -48,7 +47,7 @@ export default function SinglePost({ post }: Props) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const { edges } = await getALlPostSlugs();
+  const { edges } = await getAllPostSlugs();
   const paths = edges.map(({ node }) => `/posts/${node.slug}`) || [];
 
   return {

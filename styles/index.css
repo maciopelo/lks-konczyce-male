@@ -6,6 +6,10 @@
   @apply px-2 sm:px-8 lg:px-12 xl:px-16;
 }
 
+.header-offset {
+  @apply pt-[140px];
+}
+
 .has-text-align-left {
   @apply text-left;
 }

@@ -33,7 +33,100 @@ async function fetchAPI(
   return json.data;
 }
 
-export async function getALlPostSlugs() {
+export async function getImages(limit: number) {
+  const query = `
+  query Images($first:Int!) {
+    mediaItems(first: $first, where:{mimeType:IMAGE_JPEG} ){
+      nodes {
+        sourceUrl
+        slug
+      }
+      pageInfo {
+        hasPreviousPage
+        hasNextPage
+        startCursor
+        endCursor
+      }
+    }
+  }`;
+  const options = {
+    variables: {
+      first: limit,
+    },
+  };
+  const data = await fetchAPI(query, options);
+  return data?.mediaItems;
+}
+
+export async function getPrevImages(
+  last: number,
+  startCursor: string,
+  apiUrl?: string
+) {
+  const query = `query PrevImages($last:Int!, $before:String!)  {
+    mediaItems(
+      last:$last
+      before:$before,
+      where:{mimeType:IMAGE_JPEG}
+    ) {
+      nodes {
+        sourceUrl
+        slug
+      }
+      pageInfo {
+        hasPreviousPage
+        hasNextPage
+        startCursor
+        endCursor
+      }
+    }
+  }`;
+  const options = {
+    variables: {
+      last,
+      before: startCursor,
+    },
+  };
+
+  const data = await fetchAPI(query, options, apiUrl);
+  return data?.mediaItems;
+}
+
+export async function getNextImages(
+  first: number,
+  endCursor: string,
+  apiUrl?: string
+) {
+  const query = `query NextImages($first:Int!, $after:String!) {
+    mediaItems(
+      first:$first,
+      after:$after,
+      where:{mimeType:IMAGE_JPEG}
+    ) {
+      nodes {
+        sourceUrl
+        slug
+      }
+      pageInfo {
+        hasPreviousPage
+        hasNextPage
+        startCursor
+        endCursor
+      }
+    }
+  }`;
+  const options = {
+    variables: {
+      first,
+      after: endCursor,
+    },
+  };
+
+  const data = await fetchAPI(query, options, apiUrl);
+  return data?.mediaItems;
+}
+
+export async function getAllPostSlugs() {
   const query = `
   query AllPostSlugs {
     posts {
