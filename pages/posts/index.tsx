@@ -9,7 +9,6 @@ import Image from "next/image";
 import { useState } from "react";
 import { redirect } from "next/navigation";
 import Pagination from "@/components/Pagination";
-import { API_URL } from "@/lib/constants";
 
 const POSTS_PER_PAGE = 4;
 
@@ -36,7 +35,7 @@ export default function Index({ posts, pageInfo, preview }: Props) {
         preview,
         POSTS_PER_PAGE,
         currentPageInfo.endCursor,
-        API_URL
+        process.env.NEXT_PUBLIC_WORDPRESS_API_URL
       );
       setIsLoading(false);
       setVisiblePosts(response.edges);
@@ -53,7 +52,7 @@ export default function Index({ posts, pageInfo, preview }: Props) {
         preview,
         POSTS_PER_PAGE,
         currentPageInfo.startCursor,
-        API_URL
+        process.env.NEXT_PUBLIC_WORDPRESS_API_URL
       );
       setIsLoading(false);
       setVisiblePosts(response.edges);

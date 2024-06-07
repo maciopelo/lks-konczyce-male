@@ -4,7 +4,6 @@ import { GetStaticProps } from "next";
 import Image from "next/image";
 import Pagination from "@/components/Pagination";
 import { useState } from "react";
-import { API_URL } from "@/lib/constants";
 import { redirect } from "next/navigation";
 
 const IMAGES_PER_PAGE = 9;
@@ -37,7 +36,7 @@ export default function Gallery({ images, pageInfo }: Props) {
       const response = await getNextImages(
         IMAGES_PER_PAGE,
         currentPageInfo.endCursor,
-        API_URL
+        process.env.NEXT_PUBLIC_WORDPRESS_API_URL
       );
       setIsLoading(false);
       setVisibleImages(response.nodes);
@@ -53,7 +52,7 @@ export default function Gallery({ images, pageInfo }: Props) {
       const response = await getPrevImages(
         IMAGES_PER_PAGE,
         currentPageInfo.startCursor,
-        API_URL
+        process.env.NEXT_PUBLIC_WORDPRESS_API_URL
       );
       setIsLoading(false);
       setVisibleImages(response.nodes);
