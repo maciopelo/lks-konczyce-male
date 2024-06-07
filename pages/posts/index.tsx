@@ -73,7 +73,7 @@ export default function Index({ posts, pageInfo, preview }: Props) {
               const { title, date, image } = post.node.postFields;
               return (
                 <Link
-                  className="card w-[280px] min-[350px]:w-[300px] h-[300px] sm:w-[400px] sm:h-[330px] bg-base-100 shadow-xl relative"
+                  className="card w-[280px] min-[350px]:w-[300px] h-[300px] sm:w-[400px] sm:h-[330px] bg-base-100 shadow-xl relative hover:animate-pulse"
                   href={`${paths.POSTS}/${post.node.slug}`}
                   key={post.node.id}
                 >
