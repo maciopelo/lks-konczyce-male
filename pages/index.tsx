@@ -5,7 +5,7 @@ import Season from "components/season";
 import LatestPosts, { Post } from "components/latest-posts";
 import TableMatch from "components/table-match";
 import dynamic from "next/dynamic";
-import { Sponsor } from "components/sponsors";
+import Sponsors, { Sponsor } from "components/sponsors";
 
 interface Props {
   posts: Post[];
@@ -22,6 +22,7 @@ export default function Index({ posts, sponsors }: Props) {
       <Season />
       <LatestPosts posts={posts} />
       <TableMatch />
+      {/* <Sponsors sponsors={sponsors} /> */}
       <DynamicSponsors sponsors={sponsors} />
     </Layout>
   );

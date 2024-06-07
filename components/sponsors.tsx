@@ -57,10 +57,10 @@ export default function Sponsors({ sponsors }: Props) {
       <Slider {...settings}>
         {sponsors.map((sponsor) => (
           <div key={sponsor.node.id}>
-            <Link
-              href={sponsor.node.sponsorFields.url}
-              target="_blank"
-              rel="noopener noreferrer"
+            <div
+            // href={sponsor.node.sponsorFields.url}
+            // target="_blank"
+            // rel="noopener noreferrer"
             >
               <Image
                 height={100}
@@ -69,7 +69,7 @@ export default function Sponsors({ sponsors }: Props) {
                 alt={`${sponsor.node.sponsorFields.name} sponsor logo`}
                 className="h-auto w-[300px] object-cover object-bottom"
               />
-            </Link>
+            </div>
           </div>
         ))}
       </Slider>
