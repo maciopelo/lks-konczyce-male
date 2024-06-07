@@ -1,8 +1,8 @@
-import Layout from "@/components/Layout";
-import { getImages, getNextImages, getPrevImages } from "@/lib/api";
+import Layout from "components/layout";
+import { getImages, getNextImages, getPrevImages } from "lib/api";
 import { GetStaticProps } from "next";
 import Image from "next/image";
-import Pagination from "@/components/Pagination";
+import Pagination from "components/pagination";
 import { useState } from "react";
 import { redirect } from "next/navigation";
 
@@ -28,7 +28,7 @@ export default function Gallery({ images, pageInfo }: Props) {
   const [currentPageInfo, setCurrentPageInfo] = useState(pageInfo);
   const [isLoading, setIsLoading] = useState(false);
   const [isModal, setIsModal] = useState(false);
-  const [currentImage, setCurrentImage] = useState(null);
+  const [currentImage, setCurrentImage] = useState<Image | null>(null);
 
   const fetchNextImages = async () => {
     try {

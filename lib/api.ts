@@ -1,11 +1,20 @@
-const API_URL = process.env.WORDPRESS_API_URL;
+const API_URL = process.env.WORDPRESS_API_URL || "";
 
 async function fetchAPI(
   query = "",
   { variables }: Record<string, any> = {},
-  apiUrl = API_URL
+  apiUrl: string = API_URL
 ) {
-  const headers = { "Content-Type": "application/json" };
+  if (!URL.canParse(apiUrl)) {
+    throw new Error(`
+      Please provide a valid WordPress instance URL.
+      Add to your environment variables WORDPRESS_API_URL.
+    `);
+  }
+
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+  };
 
   if (process.env.WORDPRESS_AUTH_REFRESH_TOKEN) {
     headers[

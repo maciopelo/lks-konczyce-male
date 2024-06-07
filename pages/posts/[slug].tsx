@@ -1,8 +1,8 @@
-import Layout from "@/components/Layout";
+import Layout from "components/layout";
 import Image from "next/image";
-import { getPost, getAllPostSlugs } from "@/lib/api";
+import { getPost, getAllPostSlugs } from "lib/api";
 import { GetStaticPaths, GetStaticProps } from "next";
-import { parseDate } from "@/lib/utils";
+import { parseDate } from "lib/utils";
 
 interface Props {
   post: {
@@ -48,7 +48,10 @@ export default function SinglePost({ post }: Props) {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const { edges } = await getAllPostSlugs();
-  const paths = edges.map(({ node }) => `/posts/${node.slug}`) || [];
+  const paths =
+    edges.map(
+      ({ node }: { node: { slug: string } }) => `/posts/${node.slug}`
+    ) || [];
 
   return {
     paths,

@@ -1,17 +1,22 @@
 import { GetStaticProps } from "next";
-import { getLatestPosts, getSponsors } from "@/lib/api";
-import Layout from "@/components/Layout";
-import Season from "@/components/Season";
-import LatestPosts from "@/components/LatestPosts";
-import TableMatch from "@/components/TableMatch";
+import { getLatestPosts, getSponsors } from "lib/api";
+import Layout from "components/layout";
+import Season from "components/season";
+import LatestPosts, { Post } from "components/latest-posts";
+import TableMatch from "components/table-match";
 import dynamic from "next/dynamic";
+import { Sponsor } from "components/sponsors";
 
+interface Props {
+  posts: Post[];
+  sponsors: Sponsor[];
+}
 // To be sure that window object exists
-const DynamicSponsors = dynamic(() => import("@/components/Sponsors"), {
+const DynamicSponsors = dynamic(() => import("../components/sponsors"), {
   ssr: false,
 });
 
-export default function Index({ posts, sponsors }) {
+export default function Index({ posts, sponsors }: Props) {
   return (
     <Layout>
       <Season />

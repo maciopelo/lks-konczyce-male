@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import logo from "public/icons/logoWithoutBg.svg";
-import { paths } from "@/lib/routes";
+import { paths } from "lib/routes";
 
 export default function NotFound() {
   return (

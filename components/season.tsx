@@ -1,6 +1,4 @@
-import React from "react";
-
-const Season = () => {
+export default function Season() {
   const year = new Date().getFullYear() % 2000;
   return (
     <section className="h-screen w-full flex items-center">
@@ -23,6 +21,4 @@ const Season = () => {
       </div>
     </section>
   );
-};
-
-export default Season;
+}

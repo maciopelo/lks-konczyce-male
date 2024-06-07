@@ -23,7 +23,7 @@ module.exports = {
         protocol: protocol.slice(0, -1),
         hostname,
         port,
-        pathname: `${pathname}/**`,
+        pathname: `*/**`,
       },
     ],
   },

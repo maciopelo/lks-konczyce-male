@@ -1,5 +1,5 @@
-import { paths } from "@/lib/routes";
-import { parseDate } from "@/lib/utils";
+import { paths } from "lib/routes";
+import { parseDate } from "lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 

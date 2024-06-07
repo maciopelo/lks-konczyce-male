@@ -1,8 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
-import logo from "@/public/icons/logoWithBg.svg";
-import facebook from "@/public/icons/facebook.svg";
-import { paths } from "@/lib/routes";
+import logo from "public/icons/logoWithBg.svg";
+import facebook from "public/icons/facebook.svg";
+import { paths } from "lib/routes";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 const { HOME, POSTS, GALLERY, HISTORY } = paths;

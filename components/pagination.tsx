@@ -1,17 +1,15 @@
-import React from "react";
-
 interface Props {
   prevDisabled: boolean;
   nextDisabled: boolean;
   onPrevClick: () => void;
   onNextClick: () => void;
 }
-const Pagination = ({
+export default function Pagination({
   prevDisabled,
   nextDisabled,
   onNextClick,
   onPrevClick,
-}: Props) => {
+}: Props) {
   return (
     <div className="join grid grid-cols-2 my-6">
       <button
@@ -30,6 +28,4 @@ const Pagination = ({
       </button>
     </div>
   );
-};
-
-export default Pagination;
+}

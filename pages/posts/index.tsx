@@ -1,14 +1,14 @@
 import { GetStaticProps } from "next";
-import { getLatestPosts, getPrevPosts, getNextPosts } from "@/lib/api";
-import Layout from "@/components/Layout";
-import { Post } from "@/components/LatestPosts";
+import { getLatestPosts, getPrevPosts, getNextPosts } from "lib/api";
+import Layout from "components/layout";
+import { Post } from "components/latest-posts";
 import Link from "next/link";
-import { paths } from "@/lib/routes";
-import { parseDate } from "@/lib/utils";
+import { paths } from "lib/routes";
+import { parseDate } from "lib/utils";
 import Image from "next/image";
 import { useState } from "react";
 import { redirect } from "next/navigation";
-import Pagination from "@/components/Pagination";
+import Pagination from "components/pagination";
 
 const POSTS_PER_PAGE = 4;
 

@@ -1,10 +1,18 @@
 import Head from "next/head";
 import Image from "next/image";
-import heroImage from "@/public/images/lksPeachBg.png";
-import Header from "./Header";
-import Footer from "./Footer";
+import heroImage from "public/images/lksPeachBg.png";
+import Header from "components/header";
+import Footer from "components/footer";
+import React from "react";
 
-export default function Layout({ pageTitle = "LKS Kończyce Małe", children }) {
+interface Props {
+  pageTitle?: string;
+  children: React.ReactNode;
+}
+export default function Layout({
+  pageTitle = "LKS Kończyce Małe",
+  children,
+}: Props) {
   return (
     <>
       <Head>
