@@ -65,7 +65,7 @@ export default function Gallery({ images, pageInfo }: Props) {
   return (
     <>
       <Layout pageTitle="Galeria">
-        <section className="p-responsive header-offset flex justify-betwe en flex-col items-center w-full min-h-screen">
+        <section className="p-responsive header-offset flex justify-between flex-col items-center w-full min-h-screen">
           {isLoading ? (
             <span className="flex-1 loading loading-spinner loading-lg" />
           ) : (
@@ -88,7 +88,7 @@ export default function Gallery({ images, pageInfo }: Props) {
                         height={1000}
                         src={img.sourceUrl}
                         alt={`Hero image of post ${img.slug}`}
-                        className="w-full h-auto object-cover object-bottom rounded-md shadow-xl"
+                        className="w-full h-auto object-cover object-center rounded-md shadow-xl"
                       />
                       <div className="absolute h-full bg-dimDark w-full rounded-md" />
                     </>
@@ -109,22 +109,22 @@ export default function Gallery({ images, pageInfo }: Props) {
       {currentImage ? (
         <dialog
           id="SingeImageModal"
-          className="modal bg-dimDark"
+          className="modal bg-modalBg"
           open={isModal}
         >
-          <div className="modal-box w-11/12 max-w-6xl p-0 pt-7 sm:p-7">
+          <div className="modal-box w-11/12 max-w-6xl p-0 pt-10 sm:p-10 bg-transparent overflow-hidden shadow-none">
             <form method="dialog">
-              <figure>
+              <figure className="flex justify-center">
                 <Image
                   width={1000}
                   height={1000}
                   src={currentImage.sourceUrl}
                   alt={`Hero image of post ${currentImage.slug}`}
-                  className="w-full object-cover h-4/5 rounded-xl"
+                  className="object-contain rounded-xl"
                 />
               </figure>
               <button
-                className="btn btn-sm btn-circle btn-ghost absolute right-0.5 top-0.5 font-bold"
+                className="btn btn-sm btn-circle btn-ghost absolute right-0 top-0 font-bold text-xl"
                 onClick={() => setIsModal(false)}
               >
                 ✕

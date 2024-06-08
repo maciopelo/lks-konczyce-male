@@ -57,19 +57,31 @@ export default function Sponsors({ sponsors }: Props) {
       <Slider {...settings}>
         {sponsors.map((sponsor) => (
           <div key={sponsor.node.id}>
-            <div
-            // href={sponsor.node.sponsorFields.url}
-            // target="_blank"
-            // rel="noopener noreferrer"
-            >
-              <Image
-                height={100}
-                width={200}
-                src={sponsor.node.sponsorFields.logo.node.sourceUrl}
-                alt={`${sponsor.node.sponsorFields.name} sponsor logo`}
-                className="h-auto w-[300px] object-cover object-bottom"
-              />
-            </div>
+            {sponsor.node.sponsorFields.url ? (
+              <Link
+                href={sponsor.node.sponsorFields.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Image
+                  height={100}
+                  width={200}
+                  src={sponsor.node.sponsorFields.logo.node.sourceUrl}
+                  alt={`${sponsor.node.sponsorFields.name} sponsor logo`}
+                  className="h-auto w-[300px] object-cover object-bottom"
+                />
+              </Link>
+            ) : (
+              <div>
+                <Image
+                  height={100}
+                  width={200}
+                  src={sponsor.node.sponsorFields.logo.node.sourceUrl}
+                  alt={`${sponsor.node.sponsorFields.name} sponsor logo`}
+                  className="h-auto w-[300px] object-cover object-bottom"
+                />
+              </div>
+            )}
           </div>
         ))}
       </Slider>

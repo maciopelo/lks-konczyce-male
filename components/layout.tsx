@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
-import heroImage from "public/images/lksPeachBg.png";
+import heroImage from "public/images/lksPeachBg.jpg";
 import Header from "components/header";
 import Footer from "components/footer";
 import React from "react";

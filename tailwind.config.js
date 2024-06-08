@@ -12,6 +12,7 @@ module.exports = {
         white: "#f4ecec",
         dimWhite: "rgb(255,255,255,0.15)",
         dimDark: "rgb(0,0,0,0.2)",
+        modalBg: "rgb(0,0,0,0.5)",
       },
     },
   },

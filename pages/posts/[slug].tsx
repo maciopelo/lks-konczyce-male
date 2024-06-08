@@ -3,7 +3,7 @@ import Image from "next/image";
 import { getPost, getAllPostSlugs } from "lib/api";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { parseDate } from "lib/utils";
-
+import parse from "html-react-parser";
 interface Props {
   post: {
     slug: string;
@@ -22,24 +22,27 @@ interface Props {
 
 export default function SinglePost({ post }: Props) {
   const { title, content, date, image } = post.postFields;
+
   return (
     <Layout pageTitle="Aktualności">
-      <section className="p-responsive header-offset flex flex-col items-center justify-center w-full min-h-screen">
-        <div className="max-w-screen-md xl:max-w-screen-lg flex flex-col justify-center p-4">
+      <section className="p-responsive header-offset flex flex-col items-center min-h-screen">
+        <div className="max-w-screen-md flex flex-col justify-center">
           <h1 className="font-bold text-lg sm:text-3xl">{title}</h1>
-          <div className="flex flex-col pt-4 ">
+          <div className="flex flex-col pt-4">
             <Image
               width={1000}
               height={1000}
               src={image.node.sourceUrl}
               alt={`Hero image of post ${post.slug}`}
-              className="w-full h-auto max-h-[400px] object-cover object-bottom rounded-md"
+              className="object-contain object-bottom rounded-md"
             />
             <span className="py-4 font-bold text-sm sm:text-md">
               {parseDate(date)}
             </span>
           </div>
-          <p className=" text-sm sm:text-lg text-justify">{content}</p>
+          <article className=" text-sm sm:text-lg text-justify">
+            {parse(content)}
+          </article>
         </div>
       </section>
     </Layout>
