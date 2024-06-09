@@ -1,10 +1,11 @@
 import { GetStaticProps } from "next";
 import { getLatestPosts, getPrevPosts, getNextPosts } from "lib/api";
 import Layout from "components/layout";
-import { Post } from "components/latest-posts";
+import { Post } from "lib/types";
 import Link from "next/link";
 import { paths } from "lib/routes";
 import { parseDate } from "lib/utils";
+import { PageInfo } from "lib/types";
 import Image from "next/image";
 import { useState } from "react";
 import { redirect } from "next/navigation";
@@ -15,12 +16,7 @@ const POSTS_PER_PAGE = 4;
 interface Props {
   preview: boolean;
   posts: Post[];
-  pageInfo: {
-    hasPreviousPage: boolean;
-    hasNextPage: boolean;
-    startCursor: string;
-    endCursor: string;
-  };
+  pageInfo: PageInfo;
 }
 
 export default function Index({ posts, pageInfo, preview }: Props) {
@@ -75,7 +71,7 @@ export default function Index({ posts, pageInfo, preview }: Props) {
                 <Link
                   className="card w-[280px] min-[350px]:w-[300px] h-[300px] sm:w-[400px] sm:h-[330px] bg-base-100 shadow-xl relative hover:animate-pulse"
                   href={`${paths.POSTS}/${post.node.slug}`}
-                  key={post.node.id}
+                  key={post.node.slug}
                 >
                   <figure className="grow-[4] relative">
                     <Image

@@ -2,23 +2,7 @@ import { paths } from "lib/routes";
 import { parseDate } from "lib/utils";
 import Image from "next/image";
 import Link from "next/link";
-
-export type Post = {
-  node: {
-    id: string;
-    slug: string;
-    postFields: {
-      title: string;
-      content: string;
-      date: string;
-      image: {
-        node: {
-          sourceUrl: string;
-        };
-      };
-    };
-  };
-};
+import { Post } from "lib/types";
 
 interface Props {
   posts: Post[];

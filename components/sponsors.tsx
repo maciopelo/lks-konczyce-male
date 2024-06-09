@@ -3,22 +3,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import Link from "next/link";
-
-export type Sponsor = {
-  node: {
-    id: string;
-    sponsorFields: {
-      name: string;
-      url: string;
-      date: string;
-      logo: {
-        node: {
-          sourceUrl: string;
-        };
-      };
-    };
-  };
-};
+import { Sponsor } from "lib/types";
 
 type Props = {
   sponsors: Sponsor[];
@@ -46,6 +31,7 @@ export default function Sponsors({ sponsors }: Props) {
     autoplay: true,
     speed: 4000,
     cssEase: "linear",
+    waitForAnimate: false,
   };
 
   return (

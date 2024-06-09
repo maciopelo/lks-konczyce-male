@@ -3,21 +3,10 @@ import Image from "next/image";
 import { getPost, getAllPostSlugs } from "lib/api";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { parseDate } from "lib/utils";
+import { PostData } from "lib/types";
 import parse from "html-react-parser";
 interface Props {
-  post: {
-    slug: string;
-    postFields: {
-      title: string;
-      content: string;
-      date: string;
-      image: {
-        node: {
-          sourceUrl: string;
-        };
-      };
-    };
-  };
+  post: PostData;
 }
 
 export default function SinglePost({ post }: Props) {

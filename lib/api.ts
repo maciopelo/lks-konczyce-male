@@ -40,6 +40,45 @@ async function fetchAPI(
   return json.data;
 }
 
+export async function getLastestMatches(limit: number) {
+  const query = `
+  query Matches($first:Int!) {
+    matches(first: $first, where: {orderby: {field: DATE, order: DESC}}) {
+      edges {
+        node {
+          slug
+          matchFields {
+            date
+            goalsScored
+            goalsLost
+            hosts
+            walkoverWin
+            opponent
+            opponentLogo {
+              node {
+                sourceUrl
+              }
+            }
+          }
+        }
+      }
+      pageInfo {
+        hasPreviousPage
+        hasNextPage
+        startCursor
+        endCursor
+      }
+    }
+  }`;
+  const options = {
+    variables: {
+      first: limit,
+    },
+  };
+  const data = await fetchAPI(query, options);
+  return data?.matches;
+}
+
 export async function getImages(limit: number) {
   const query = `
   query Images($first:Int!) {
@@ -341,5 +380,5 @@ export async function getSponsors(preview: boolean) {
   };
 
   const data = await fetchAPI(query, options);
-  return data?.sponsors.edges;
+  return data?.sponsors;
 }

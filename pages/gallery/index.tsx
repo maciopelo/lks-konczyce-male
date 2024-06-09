@@ -5,22 +5,13 @@ import Image from "next/image";
 import Pagination from "components/pagination";
 import { useState } from "react";
 import { redirect } from "next/navigation";
-
+import { PageInfo } from "lib/types";
+import { GalleryImage } from "lib/types";
 const IMAGES_PER_PAGE = 9;
 
-type Image = {
-  slug: string;
-  sourceUrl: string;
-};
-
 interface Props {
-  images: Image[];
-  pageInfo: {
-    hasPreviousPage: boolean;
-    hasNextPage: boolean;
-    startCursor: string;
-    endCursor: string;
-  };
+  images: GalleryImage[];
+  pageInfo: PageInfo;
 }
 
 export default function Gallery({ images, pageInfo }: Props) {
@@ -28,7 +19,7 @@ export default function Gallery({ images, pageInfo }: Props) {
   const [currentPageInfo, setCurrentPageInfo] = useState(pageInfo);
   const [isLoading, setIsLoading] = useState(false);
   const [isModal, setIsModal] = useState(false);
-  const [currentImage, setCurrentImage] = useState<Image | null>(null);
+  const [currentImage, setCurrentImage] = useState<GalleryImage | null>(null);
 
   const fetchNextImages = async () => {
     try {
