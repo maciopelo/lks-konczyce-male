@@ -1,4 +1,5 @@
 const API_URL = process.env.WORDPRESS_API_URL || "";
+const GALLERY_IMAGES = "gallery";
 
 async function fetchAPI(
   query = "",
@@ -99,7 +100,7 @@ export async function getLastestMatches(limit: number) {
 export async function getImages(limit: number) {
   const query = `
   query Images($first:Int!) {
-    mediaItems(first: $first, where:{mimeType:IMAGE_JPEG} ){
+    mediaItems(first: $first, where:{ mimeType:IMAGE_JPEG, search: "${GALLERY_IMAGES}"} ){
       nodes {
         sourceUrl
         slug
@@ -130,7 +131,7 @@ export async function getPrevImages(
     mediaItems(
       last:$last
       before:$before,
-      where:{mimeType:IMAGE_JPEG}
+      where:{ mimeType:IMAGE_JPEG, search: "${GALLERY_IMAGES}"}
     ) {
       nodes {
         sourceUrl
@@ -164,7 +165,7 @@ export async function getNextImages(
     mediaItems(
       first:$first,
       after:$after,
-      where:{mimeType:IMAGE_JPEG}
+      where:{ mimeType:IMAGE_JPEG, search: "${GALLERY_IMAGES}"}
     ) {
       nodes {
         sourceUrl
