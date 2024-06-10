@@ -3,4 +3,5 @@ export const paths = {
   POSTS: "/posts",
   GALLERY: "/gallery",
   HISTORY: "/history",
+  POLITICS_PRIVACY: "/politics-privacy",
 };

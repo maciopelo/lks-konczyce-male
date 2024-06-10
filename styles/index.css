@@ -117,3 +117,12 @@
   align-items: center;
   height: 100%;
 }
+
+.politics-privacy > * {
+  padding-bottom: 0.75rem;
+}
+
+.politics-privacy > ol {
+  list-style-type: circle;
+  margin-left: 1em;
+}

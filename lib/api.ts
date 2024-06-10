@@ -40,6 +40,23 @@ async function fetchAPI(
   return json.data;
 }
 
+export async function getPage(id: string) {
+  const query = `
+  query PoliticsPrivacy($id: ID!) {
+  page(id: $id, idType: DATABASE_ID) {
+    content
+    title
+  }
+}`;
+  const options = {
+    variables: {
+      id,
+    },
+  };
+  const data = await fetchAPI(query, options);
+  return data.page;
+}
+
 export async function getLastestMatches(limit: number) {
   const query = `
   query Matches($first:Int!) {

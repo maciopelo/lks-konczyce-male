@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Link from "next/link";
+import { paths } from "@/lib/routes";
 
 export default function Footer() {
   useEffect(() => {
@@ -29,13 +30,7 @@ export default function Footer() {
         <span className="text-lg min-[350px]:text-xs">©</span>
       </div>
       <div className="flex-2 sm:flex-1 text-right flex justify-end items-center text-[10px] sm:text-sm">
-        <Link
-          href="/polityka-prywatnosci.pdf"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          Polityka prywatności
-        </Link>
+        <Link href={paths.POLITICS_PRIVACY}>Polityka prywatności</Link>
       </div>
     </footer>
   );
