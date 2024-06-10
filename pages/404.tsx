@@ -7,8 +7,10 @@ export default function NotFound() {
   return (
     <div className="w-screen h-screen flex justify-center items-center flex-col bg-darkBurgund text-white uppercase text-2xl font-600 text-center">
       <h1>Uppps! Strona nie istnieje</h1>
-      <Image src={logo} alt="Logo LKS Kończyce Małe" className="m-8" />
-      <Link href={paths.HOME}>Wróć na główną</Link>
+      <Link href={paths.HOME}>
+        <Image src={logo} alt="Logo LKS Kończyce Małe" className="m-8" />
+        <p>Wróć na główną</p>
+      </Link>
     </div>
   );
 }

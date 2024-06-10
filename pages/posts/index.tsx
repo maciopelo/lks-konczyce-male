@@ -8,8 +8,8 @@ import { parseDate } from "lib/utils";
 import { PageInfo } from "lib/types";
 import Image from "next/image";
 import { useState } from "react";
-import { redirect } from "next/navigation";
 import Pagination from "components/pagination";
+import { useRouter } from "next/router";
 
 const POSTS_PER_PAGE = 4;
 
@@ -20,6 +20,7 @@ interface Props {
 }
 
 export default function Index({ posts, pageInfo, preview }: Props) {
+  const router = useRouter();
   const [visiblePosts, setVisiblePosts] = useState(posts);
   const [currentPageInfo, setCurrentPageInfo] = useState(pageInfo);
   const [isLoading, setIsLoading] = useState(false);
@@ -37,7 +38,9 @@ export default function Index({ posts, pageInfo, preview }: Props) {
       setVisiblePosts(response.edges);
       setCurrentPageInfo(response.pageInfo);
     } catch (error) {
-      redirect("/500");
+      setIsLoading(false);
+      console.log(error);
+      router.push("/500");
     }
   };
 
@@ -54,7 +57,9 @@ export default function Index({ posts, pageInfo, preview }: Props) {
       setVisiblePosts(response.edges);
       setCurrentPageInfo(response.pageInfo);
     } catch (error) {
-      redirect("/500");
+      setIsLoading(false);
+      console.log(error);
+      router.push("/500");
     }
   };
 

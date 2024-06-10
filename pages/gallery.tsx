@@ -4,9 +4,9 @@ import { GetStaticProps } from "next";
 import Image from "next/image";
 import Pagination from "components/pagination";
 import { useState } from "react";
-import { redirect } from "next/navigation";
 import { PageInfo } from "lib/types";
 import { GalleryImage } from "lib/types";
+import { useRouter } from "next/router";
 const IMAGES_PER_PAGE = 9;
 
 interface Props {
@@ -15,6 +15,7 @@ interface Props {
 }
 
 export default function Gallery({ images, pageInfo }: Props) {
+  const router = useRouter();
   const [visibleImages, setVisibleImages] = useState(images);
   const [currentPageInfo, setCurrentPageInfo] = useState(pageInfo);
   const [isLoading, setIsLoading] = useState(false);
@@ -33,7 +34,9 @@ export default function Gallery({ images, pageInfo }: Props) {
       setVisibleImages(response.nodes);
       setCurrentPageInfo(response.pageInfo);
     } catch (error) {
-      redirect("/500");
+      setIsLoading(false);
+      console.log(error);
+      router.push("/500");
     }
   };
 
@@ -49,7 +52,9 @@ export default function Gallery({ images, pageInfo }: Props) {
       setVisibleImages(response.nodes);
       setCurrentPageInfo(response.pageInfo);
     } catch (error) {
-      redirect("/500");
+      setIsLoading(false);
+      console.log(error);
+      router.push("/500");
     }
   };
 
