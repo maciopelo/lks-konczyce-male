@@ -78,8 +78,8 @@ export default function Gallery({ images, pageInfo }: Props) {
                         width={1000}
                         height={1000}
                         src={img.sourceUrl}
-                        alt={`Hero image of post ${img.slug}`}
-                        className="w-full h-auto object-cover object-center rounded-md shadow-xl"
+                        alt={`Image: ${img.slug}`}
+                        className="w-full h-auto object-cover object-top rounded-md shadow-xl"
                       />
                       <div className="absolute h-full bg-dimDark w-full rounded-md" />
                     </>
