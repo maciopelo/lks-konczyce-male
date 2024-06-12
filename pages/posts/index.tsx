@@ -39,7 +39,7 @@ export default function Index({ posts, pageInfo, preview }: Props) {
       setCurrentPageInfo(response.pageInfo);
     } catch (error) {
       setIsLoading(false);
-      console.log(error);
+      console.error(error);
       router.push("/500");
     }
   };
@@ -58,7 +58,7 @@ export default function Index({ posts, pageInfo, preview }: Props) {
       setCurrentPageInfo(response.pageInfo);
     } catch (error) {
       setIsLoading(false);
-      console.log(error);
+      console.error(error);
       router.push("/500");
     }
   };

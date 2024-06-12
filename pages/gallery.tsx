@@ -35,7 +35,7 @@ export default function Gallery({ images, pageInfo }: Props) {
       setCurrentPageInfo(response.pageInfo);
     } catch (error) {
       setIsLoading(false);
-      console.log(error);
+      console.error(error);
       router.push("/500");
     }
   };
@@ -53,7 +53,7 @@ export default function Gallery({ images, pageInfo }: Props) {
       setCurrentPageInfo(response.pageInfo);
     } catch (error) {
       setIsLoading(false);
-      console.log(error);
+      console.error(error);
       router.push("/500");
     }
   };
