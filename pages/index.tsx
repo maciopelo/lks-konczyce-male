@@ -28,9 +28,9 @@ export default function Index({ posts, sponsors, matchesData }: Props) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
+export const getStaticProps: GetStaticProps = async () => {
   const latestPosts = await getPosts(4);
-  const sponsors = await getSponsors(preview);
+  const sponsors = await getSponsors();
   const matchesData = await getMatches(5);
 
   return {
@@ -38,7 +38,6 @@ export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
       posts: latestPosts.edges,
       sponsors: sponsors.edges,
       matchesData,
-      preview,
     },
     revalidate: 10,
   };

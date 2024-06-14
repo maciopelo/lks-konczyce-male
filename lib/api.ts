@@ -160,7 +160,7 @@ export async function getAllPostSlugs() {
   return data?.posts;
 }
 
-export async function getPost(preview: boolean, slug: string) {
+export async function getPost(slug: string) {
   const query = `
   query Post($id: ID!)  {
     post(id: $id, idType: SLUG) {
@@ -180,8 +180,6 @@ export async function getPost(preview: boolean, slug: string) {
   const options = {
     variables: {
       id: slug,
-      onlyEnabled: !preview,
-      preview,
     },
   };
 
@@ -231,7 +229,7 @@ export async function getPosts(limit: number, offset?: number) {
   return data?.posts;
 }
 
-export async function getSponsors(preview: boolean) {
+export async function getSponsors() {
   const query = `query Sponsors {
     sponsors {
       edges {
@@ -250,13 +248,7 @@ export async function getSponsors(preview: boolean) {
       }
     }
   }`;
-  const options = {
-    variables: {
-      onlyEnabled: !preview,
-      preview,
-    },
-  };
 
-  const data = await fetchAPI(query, options);
+  const data = await fetchAPI(query);
   return data?.sponsors;
 }
