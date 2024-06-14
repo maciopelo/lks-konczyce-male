@@ -1,31 +1,35 @@
+import Link from "next/link";
+
 interface Props {
   prevDisabled: boolean;
   nextDisabled: boolean;
-  onPrevClick: () => void;
-  onNextClick: () => void;
+  prevLink?: string;
+  nextLink?: string;
 }
 export default function Pagination({
   prevDisabled,
   nextDisabled,
-  onNextClick,
-  onPrevClick,
+  prevLink,
+  nextLink,
 }: Props) {
   return (
     <div className="join grid grid-cols-2 my-6">
-      <button
-        disabled={prevDisabled}
-        className="join-item btn btn-outline text-3xl"
-        onClick={onPrevClick}
-      >
-        «
-      </button>
-      <button
-        disabled={nextDisabled}
-        className="join-item btn btn-outline text-3xl"
-        onClick={onNextClick}
-      >
-        »
-      </button>
+      <Link href={prevLink ?? "/"}>
+        <button
+          disabled={prevDisabled}
+          className="join-item btn btn-outline text-3xl"
+        >
+          «
+        </button>
+      </Link>
+      <Link href={nextLink ?? "/"}>
+        <button
+          disabled={nextDisabled}
+          className="join-item btn btn-outline text-3xl"
+        >
+          »
+        </button>
+      </Link>
     </div>
   );
 }

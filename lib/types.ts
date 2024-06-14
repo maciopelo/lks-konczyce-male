@@ -1,8 +1,8 @@
 export type PageInfo = {
-  hasPreviousPage: boolean;
-  hasNextPage: boolean;
-  startCursor: string;
-  endCursor: string;
+  offsetPagination: {
+    hasPrevious: boolean;
+    hasMore: boolean;
+  };
 };
 
 export type GalleryImage = {

@@ -234,105 +234,11 @@ export async function getPost(preview: boolean, slug: string) {
   return data?.post;
 }
 
-export async function getPrevPosts(
-  preview: boolean,
-  last: number,
-  startCursor: string,
-  apiUrl?: string
-) {
-  const query = `query Posts($last:Int!, $before:String!)  {
+export async function getPosts(limit: number, offset?: number) {
+  const query = `query Posts($limit:Int!, $offset:Int) {
     posts(
-      last:$last
-      before:$before,
-    ) {
-      edges {
-        node {
-          id
-          slug
-          postFields {
-            title
-            date
-            image {
-              node {
-                sourceUrl
-              }
-            }
-          }
-        }
-      }
-      pageInfo{
-        hasPreviousPage
-        hasNextPage
-        startCursor
-        endCursor
-      }
-    }
-  }`;
-  const options = {
-    variables: {
-      onlyEnabled: !preview,
-      preview,
-      last,
-      before: startCursor,
-    },
-  };
-
-  const data = await fetchAPI(query, options, apiUrl);
-  return data?.posts;
-}
-
-export async function getNextPosts(
-  preview: boolean,
-  first: number,
-  endCursor: string,
-  apiUrl?: string
-) {
-  const query = `query Posts($first:Int!, $after:String!) {
-    posts(
-      first:$first,
-      after:$after
-    ) {
-      edges {
-        node {
-          id
-          slug
-          postFields {
-            title
-            date
-            image {
-              node {
-                sourceUrl
-              }
-            }
-          }
-        }
-      }
-      pageInfo{
-        hasPreviousPage
-        hasNextPage
-        startCursor
-        endCursor
-      }
-    }
-  }`;
-  const options = {
-    variables: {
-      onlyEnabled: !preview,
-      preview,
-      first,
-      after: endCursor,
-    },
-  };
-
-  const data = await fetchAPI(query, options, apiUrl);
-  return data?.posts;
-}
-
-export async function getLatestPosts(preview: boolean, limit: number) {
-  const query = `query Posts($first:Int!) {
-    posts(
-      first:$first,
       where: { 
+        offsetPagination: { size: $limit, offset:$offset },
         orderby: { field:DATE, order:DESC } 
       }
     ) {
@@ -352,18 +258,17 @@ export async function getLatestPosts(preview: boolean, limit: number) {
         }
       }
       pageInfo{
-        hasPreviousPage
-        hasNextPage
-        startCursor
-        endCursor
+        offsetPagination {
+          hasMore
+          hasPrevious
+        }
       }
     }
   }`;
   const options = {
     variables: {
-      onlyEnabled: !preview,
-      preview,
-      first: limit,
+      limit,
+      offset,
     },
   };
 
