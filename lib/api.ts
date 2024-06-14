@@ -58,7 +58,7 @@ export async function getPage(id: string) {
   return data.page;
 }
 
-export async function getLastestMatches(limit: number) {
+export async function getMatches(limit: number) {
   const query = `
   query Matches($first:Int!) {
     matches(first: $first, where: {orderby: {field: DATE, order: DESC}}) {
@@ -97,96 +97,51 @@ export async function getLastestMatches(limit: number) {
   return data?.matches;
 }
 
-export async function getImages(limit: number) {
+export async function getImagesCount() {
   const query = `
-  query Images($first:Int!) {
-    mediaItems(first: $first, where:{ mimeType:IMAGE_JPEG, search: "${GALLERY_IMAGES}"} ){
+  query ImagesCount {
+    mediaItems(where: {mimeType: IMAGE_JPEG, search: "${GALLERY_IMAGES}"}) {
+      pageInfo {
+        offsetPagination {
+          total
+        }
+      }
+    }
+  }`;
+  const data = await fetchAPI(query);
+  return data?.mediaItems;
+}
+
+export async function getImages(limit: number, offset?: number) {
+  const query = `
+  query Images($limit:Int!, $offset:Int) {
+    mediaItems(
+      where: { 
+        mimeType:IMAGE_JPEG, 
+        search: "${GALLERY_IMAGES}",
+        offsetPagination: {size: $limit, offset: $offset}
+      }
+    ){
       nodes {
         sourceUrl
         slug
       }
       pageInfo {
-        hasPreviousPage
-        hasNextPage
-        startCursor
-        endCursor
+        offsetPagination {
+          hasMore
+          hasPrevious
+          total
+        }
       }
     }
   }`;
   const options = {
     variables: {
-      first: limit,
+      limit,
+      offset,
     },
   };
   const data = await fetchAPI(query, options);
-  return data?.mediaItems;
-}
-
-export async function getPrevImages(
-  last: number,
-  startCursor: string,
-  apiUrl?: string
-) {
-  const query = `query PrevImages($last:Int!, $before:String!)  {
-    mediaItems(
-      last:$last
-      before:$before,
-      where:{ mimeType:IMAGE_JPEG, search: "${GALLERY_IMAGES}"}
-    ) {
-      nodes {
-        sourceUrl
-        slug
-      }
-      pageInfo {
-        hasPreviousPage
-        hasNextPage
-        startCursor
-        endCursor
-      }
-    }
-  }`;
-  const options = {
-    variables: {
-      last,
-      before: startCursor,
-    },
-  };
-
-  const data = await fetchAPI(query, options, apiUrl);
-  return data?.mediaItems;
-}
-
-export async function getNextImages(
-  first: number,
-  endCursor: string,
-  apiUrl?: string
-) {
-  const query = `query NextImages($first:Int!, $after:String!) {
-    mediaItems(
-      first:$first,
-      after:$after,
-      where:{ mimeType:IMAGE_JPEG, search: "${GALLERY_IMAGES}"}
-    ) {
-      nodes {
-        sourceUrl
-        slug
-      }
-      pageInfo {
-        hasPreviousPage
-        hasNextPage
-        startCursor
-        endCursor
-      }
-    }
-  }`;
-  const options = {
-    variables: {
-      first,
-      after: endCursor,
-    },
-  };
-
-  const data = await fetchAPI(query, options, apiUrl);
   return data?.mediaItems;
 }
 

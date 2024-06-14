@@ -14,22 +14,41 @@ export default function Pagination({
 }: Props) {
   return (
     <div className="join grid grid-cols-2 my-6">
-      <Link href={prevLink ?? "/"}>
+      {prevDisabled ? (
         <button
           disabled={prevDisabled}
           className="join-item btn btn-outline text-3xl"
         >
           «
         </button>
-      </Link>
-      <Link href={nextLink ?? "/"}>
+      ) : (
+        <Link href={prevLink ?? "/"}>
+          <button
+            disabled={prevDisabled}
+            className="join-item btn btn-outline text-3xl"
+          >
+            «
+          </button>
+        </Link>
+      )}
+
+      {nextDisabled ? (
         <button
           disabled={nextDisabled}
           className="join-item btn btn-outline text-3xl"
         >
           »
         </button>
-      </Link>
+      ) : (
+        <Link href={nextLink ?? "/"}>
+          <button
+            disabled={nextDisabled}
+            className="join-item btn btn-outline text-3xl"
+          >
+            »
+          </button>
+        </Link>
+      )}
     </div>
   );
 }
