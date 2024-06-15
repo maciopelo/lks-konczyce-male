@@ -118,11 +118,22 @@
   height: 100%;
 }
 
-.politics-privacy > * {
+.politics-privacy,
+.history > * {
   padding-bottom: 0.75rem;
 }
 
-.politics-privacy > ol {
+.politics-privacy,
+.history > ol,
+ul {
   list-style-type: circle;
   margin-left: 1em;
+}
+
+.history a {
+  text-decoration: underline;
+}
+
+.history li {
+  padding-bottom: 0.5em;
 }
