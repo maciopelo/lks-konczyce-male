@@ -26,9 +26,7 @@ export default function PoliticsPrivacy({ page }: Props) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const page = await getPage(
-    `${process.env.NEXT_PUBLIC_POLITICS_PRIVACY_PAGE_ID}`
-  );
+  const page = await getPage(`${process.env.POLITICS_PRIVACY_PAGE_ID}`);
   return {
     props: { page },
     revalidate: 10,

@@ -26,7 +26,7 @@ export default function History({ page }: Props) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const page = await getPage(`${process.env.NEXT_PUBLIC_HISTORY_PAGE_ID}`);
+  const page = await getPage(`${process.env.HISTORY_PAGE_ID}`);
   return {
     props: { page },
     revalidate: 10,
